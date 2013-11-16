@@ -60,19 +60,31 @@ content = 'Ok, this is my content'
 imageID = 9999
 lat = 37.85
 lon = -122.78
-c.execute("INSERT INTO PCID VALUES (?,?,?)",\
-	 (PCID, first_name, family_name))   
-	 
-c.execute("INSERT INTO CHECKIN VALUES (?,?)",\
-	 (No_to, code))
-	
-c.execute("INSERT INTO CONTENT VALUES (?,?,?,?,?,?,?,?)",\
-	 (ContentID, PCID, timestamp, title, content, imageID, lat, lon))
+try:
+	c.execute("INSERT INTO PCID VALUES (?,?,?)",\
+	 (PCID, first_name, family_name))
+except:
+	pass
 
+try: 
+	c.execute("INSERT INTO CHECKIN VALUES (?,?)",\
+	 (No_to, code))
+except:
+	pass
+
+try:
+	c.execute("INSERT INTO CONTENT VALUES (?,?,?,?,?,?,?,?)",\
+	 (ContentID, PCID, timestamp, title, content, imageID, lat, lon))
+except:
+	pass
+	
 imagedata = open('Happy_cat.jpg', "rb").read()	 
 
-c.execute("INSERT INTO IMAGE VALUES (?,?)",\
+try:
+	c.execute("INSERT INTO IMAGE VALUES (?,?)",\
 	 (imageID, sqlite.encode(sqlite.Binary(imagedata))))
-  
+except:
+	pass
+	  
 conn.commit()
 
